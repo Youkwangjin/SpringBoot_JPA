@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <!-- CSS 파일 연결 -->
+    <link rel="stylesheet" href="/css/member-join.css">
+</head>
+<body>
+<!-- action 속성 : form에 작성한 데이터를 어디로 보낼지 지정-->
+<form action="/member/save" method="post" class="form-container">
+    <!-- name 속성 : 서버로 전송할 때 변수이름의 역할-->
+    <div class="form-group">
+        <label for="user_id">아이디 :</label>
+        <input type="text" id="user_id" name="userid">
+    </div>
+    <div class="form-group">
+        <label for="user_pwd">비밀번호 :</label>
+        <input type="password" id="user_pwd" name="userpwd">
+    </div>
+    <div class="form-group">
+        <label for="user_name">이름 :</label>
+        <input type="text" id="user_name" name="username">
+    </div>
+    <div class="form-group">
+        <label for="user_tel">전화번호 :</label>
+        <input type="text" id="user_tel" name="usertel">
+    </div>
+    <div class="form-group">
+        <label for="user_email">이메일 :</label>
+        <input type="text" id="user_email" name="useremail">
+    </div>
+    <div class="form-group">
+        <label for="user_addr">주소 :</label>
+        <input type="text" id="user_addr" name="useraddr">
+    </div>
+    <div class="form-group">
+        <label for="user_jumin">주민번호 :</label>
+        <input type="text" id="user_jumin" name="userjumin">
+    </div>
+    <div class="form-group">
+        <label for="user_height">키 :</label>
+        <input type="text" id="user_height" name="userheight">
+    </div>
+    <div class="form-group">
+        <label for="user_weight">몸무게 :</label>
+        <input type="text" id="user_weight" name="userweight">
+    </div>
+    <div class="form-group">
+        <label for="user_shoessize">신발사이즈 :</label>
+        <input type="text" id="user_shoessize" name="usershoessize">
+    </div>
+    <input type="submit" value="회원가입">
+</form>
+</body>
+</html>
