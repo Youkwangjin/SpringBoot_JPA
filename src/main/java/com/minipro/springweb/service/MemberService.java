@@ -17,7 +17,7 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    public void MemberSave(MemberDto memberDto) {
+    public void memberSave(MemberDto memberDto) {
         // 1. Dto -> Entity 객체로 변환
         // 2. Repository save 메서드 호출
         MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDto);
@@ -25,7 +25,7 @@ public class MemberService {
         // Repository save 메서드 호출 (조건 : Entity 객체를 넘겨줘야 한다.
     }
 
-    public MemberDto MemberLogin(MemberDto memberDto) {
+    public MemberDto memberLogin(MemberDto memberDto) {
         /*
             1. 회원이 입력한 아이디로 DB에서 조회한다.
             2. DB에서 조회한 비밀번호와 사용자가 입력한 비밀번호가 일치하는지 판단한다.
@@ -62,7 +62,6 @@ public class MemberService {
     }
 
     public MemberDto memberFindById(String userid) {
-
         Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(userid);
         if (optionalMemberEntity.isPresent()) {
             /*

@@ -30,7 +30,7 @@ public class MemberController {
 
     @PostMapping("/member/save")
     public String memberSave(@ModelAttribute MemberDto memberDto) {
-        memberService.MemberSave(memberDto);
+        memberService.memberSave(memberDto);
         return "index";
     }
     
@@ -41,7 +41,7 @@ public class MemberController {
 
     @PostMapping("/member/login/go")
     public String memberLoginGo(@ModelAttribute MemberDto memberDto, HttpSession session) {
-        MemberDto loginResult = memberService.MemberLogin(memberDto);
+        MemberDto loginResult = memberService.memberLogin(memberDto);
         if(loginResult != null) {
             // 로그인 성공
             session.setAttribute("loginId", loginResult.getUserid());
