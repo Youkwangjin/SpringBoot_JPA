@@ -17,7 +17,7 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    public void save(MemberDto memberDto) {
+    public void MemberSave(MemberDto memberDto) {
         // 1. Dto -> Entity 객체로 변환
         // 2. Repository save 메서드 호출
         MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDto);
@@ -25,7 +25,7 @@ public class MemberService {
         // Repository save 메서드 호출 (조건 : Entity 객체를 넘겨줘야 한다.
     }
 
-    public MemberDto login(MemberDto memberDto) {
+    public MemberDto MemberLogin(MemberDto memberDto) {
         /*
             1. 회원이 입력한 아이디로 DB에서 조회한다.
             2. DB에서 조회한 비밀번호와 사용자가 입력한 비밀번호가 일치하는지 판단한다.
@@ -49,15 +49,55 @@ public class MemberService {
         }
     }
 
-    public List<MemberDto> findAll() {
+    public List<MemberDto> memberFindAll() {
         List<MemberEntity> memberEntityList = memberRepository.findAll();
         List<MemberDto> memberDtoList = new ArrayList<>();
         for (MemberEntity memberEntity: memberEntityList) {
-            memberDtoList.add(MemberDto.toMemberDto(memberEntity));
+            //memberDtoList.add(MemberDto.toMemberDto(memberEntity));
 
-/*          MemberDto memberDto = MemberDto.toMemberDto(memberEntity);
-            memberDtoList.add(memberDto);*/
+            MemberDto memberDto = MemberDto.toMemberDto(memberEntity);
+            memberDtoList.add(memberDto);
         }
         return memberDtoList;
+    }
+
+    public MemberDto memberFindById(String userid) {
+
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(userid);
+        if (optionalMemberEntity.isPresent()) {
+            /*
+                1. optional 이라는 포장지를 제거 get() 으로 제거
+                2. MemberEntity 즉, Entity으로 넘어온다.
+                3. Entity를 toMemberDto로 넘기면 Dto 타입으로 변환이 되고 리턴한다.
+             */
+            MemberEntity memberEntity = optionalMemberEntity.get();
+            MemberDto memberDto = MemberDto.toMemberDto(memberEntity);
+            return memberDto;
+
+            // return MemberDto.toMemberDto(optionalMemberEntity.get());
+        } else {
+            return null;
+        }
+    }
+
+    public MemberDto memberUpdateForm(String myId) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByUserid(myId);
+        if (optionalMemberEntity.isPresent()) {
+            return MemberDto.toMemberDto(optionalMemberEntity.get());
+        } else {
+            return null;
+        }
+    }
+
+    public void memberInfoUpdate(MemberDto memberDto) {
+        /*
+            Repository에는 Update라는 메서드가 없다. 따라서 Save 메서드를 사용한다.
+            JPA 에서는 DB에 있는 id가 있는 Entity 객체가 넘어오면 update 쿼리문을 자동으로 날려준다.
+         */
+        memberRepository.save(MemberEntity.toUpdateMemberEntity(memberDto));
+    }
+
+    public void memberDeleteById(String userid) {
+        memberRepository.deleteById(userid);
     }
 }
