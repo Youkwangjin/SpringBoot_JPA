@@ -89,4 +89,10 @@ public class MemberController {
         return "redirect:/member/list";
 
     }
+
+    @GetMapping("/member/logout")
+    public String memberLogout(HttpSession session) {
+        session.invalidate();
+        return "index";
+    }
 }

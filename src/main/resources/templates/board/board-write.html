@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>게시물 작성하기</title>
+    <style>
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea[name="boardcontents"] {
+            height: 100px; /* 필드의 높이 조절 */
+        }
+    </style>
+</head>
+<body>
+<form action="/board/insert/save" method="post">
+    writer : <input type="text" name="boardwriter"></br>
+    pass : <input type="text" name="boardpass"></br>
+    title : <input type="text" name="boardtitle"></br>
+    contents : <textarea name="boardcontents" cols="30" rows="10"></textarea> </br>
+    <input type="submit" value="작성하기">
+</form>
+</body>
+</html>
