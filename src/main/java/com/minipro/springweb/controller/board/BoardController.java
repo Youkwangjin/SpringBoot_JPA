@@ -67,9 +67,15 @@ public class BoardController {
             1. 수정이 완료되면 상세 페이지로 보여진다.
             2. 수정이 반영된 객체를 가지와서 board-detail.html로 가지고 간다.
          */
-        BoardDto board = boardService.boardUpdateId(boardDto);
+        BoardDto board = boardService.boardUpdate(boardDto);
         model.addAttribute("board", board);
         return "board/board-detail";
 
+    }
+
+    @GetMapping("/delete/{id}")
+    public String BoardDeleteForm(@PathVariable Long id) {
+        boardService.boardDelete(id);
+        return "redirect:/board/list";
     }
 }

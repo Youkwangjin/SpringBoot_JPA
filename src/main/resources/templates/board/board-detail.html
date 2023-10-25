@@ -8,6 +8,7 @@
         window.onload = function () {
             document.querySelector("#backList").onclick=backFunc;
             document.querySelector("#updateInfo").onclick=updateForm;
+            document.querySelector("#deleteInfo").onclick=deleteForm;
         }
         function backFunc(){
             console.log("목록 요청");
@@ -17,8 +18,11 @@
             console.log("수정 요청");
             const id = [[${board.id}]];
             location.href = "/board/update/" + id;
-
-
+        }
+        function deleteForm() {
+            console.log("삭제 요청");
+            const id = [[${board.id}]];
+            location.href = "/board/delete/" + id;
         }
     </script>
 </head>
@@ -37,10 +41,12 @@
             <td>작성자</td>
             <td th:text="${board.boardwriter}"></td>
         </tr>
+        <!--
         <tr>
             <td>작성시간</td>
-            <td th:text="${board.boardcreatedtime}"></td>
+            <td th:text="*{#temporals.format(board.boardcreatedtime)}"></td>
         </tr>
+        -->
         <tr>
             <td>조회수</td>
             <td th:text="${board.boardhit}"></td>
@@ -55,6 +61,7 @@
             <td colspan="2" style="text-align: center;">
                 <input type="button" value="목록" id="backList" class="btn btn-primary"/>
                 <input type="button" value="수정하기" id="updateInfo" class="btn btn-primary"/>
+                <input type="button" value="삭제하기" id="deleteInfo" class="btn btn-primary"/>
             </td>
         </tr>
     </table>

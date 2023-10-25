@@ -20,7 +20,7 @@
         <td th:text="${board.id}"></td>
         <td><a th:href="@{|/board/list/${board.id}|}" th:text="${board.boardtitle}"></a></td>
         <td th:text="${board.boardwriter}"></td>
-        <td th:text="*{#temporals.format(board.boardcreatedtime, 'yyyy-MM-dd')}"></td>
+        <td th:text="*{#temporals.format(board.boardcreatedtime)}"></td>
         <td th:text="${board.boardhit}"></td>
     </tr>
 </table>
