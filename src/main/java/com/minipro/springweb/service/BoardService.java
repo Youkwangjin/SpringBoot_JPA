@@ -5,6 +5,12 @@ import com.minipro.springweb.entity.BoardEntity;
 import com.minipro.springweb.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.beans.Transient;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 /*
@@ -26,5 +32,40 @@ public class BoardService {
         BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDto);
         boardRepository.save(boardEntity);
 
+    }
+
+    public List<BoardDto> boardListAll() {
+        // Entity 객체에서 넘어온 객체를 Dto에게 주기 위해 형 변환을 해줘야 한다.
+        List<BoardEntity> boardEntityList = boardRepository.findAll();
+        List<BoardDto> boardDtoList = new ArrayList<>();
+        // Entity 객체를 Dto타입으로 변환 하고 그 값들을 List에 담는다.
+        for (BoardEntity boardEntity: boardEntityList) {
+            boardDtoList.add(BoardDto.toBoardDto(boardEntity));
+        }
+        return boardDtoList;
+
+    }
+
+    @Transactional
+    public void boardUpdateHit(Long id) {
+        boardRepository.updateHit(id);
+
+    }
+
+    public BoardDto boardFindId(Long id) {
+        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
+        if(optionalBoardEntity.isPresent()) {
+            BoardEntity boardEntity = optionalBoardEntity.get();
+            BoardDto boardDto = BoardDto.toBoardDto(boardEntity);
+            return boardDto;
+        } else {
+            return null;
+        }
+    }
+
+    public BoardDto boardUpdateId(BoardDto boardDto) {
+        BoardEntity boardEntity = BoardEntity.toUpdateEntity(boardDto);
+        boardRepository.save(boardEntity);
+        return boardFindId(boardDto.getId());
     }
 }

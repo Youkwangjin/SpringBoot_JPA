@@ -20,6 +20,6 @@ public class BoardBaseEntity {
     private LocalDateTime createdtime;
 
     @UpdateTimestamp
-    @Column(insertable = false) // 입력할 시 관여하지 않는다. 
+    @Column(insertable = false) // 입력할 시 관여하지 않는다.
     private LocalDateTime updatedtime;
 }

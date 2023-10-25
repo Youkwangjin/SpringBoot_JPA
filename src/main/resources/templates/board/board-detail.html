@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>insert</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script th:inline="javascript">
+        window.onload = function (){
+            document.querySelector("#backList").onclick=backFunc;
+            document.querySelector("#updateInfo").onclick=updateForm;
+        }
+        function backFunc(){
+            console.log("목록 요청");
+            location.href = "/board/list";
+        }
+        function updateForm(){
+            console.log("수정 요청");
+            const id = [[${board.id}]];
+            location.href = "/board/update/" + id;
+
+
+        }
+    </script>
+</head>
+<body style="margin: 20px;">
+<h3 style="text-align: center;">상세보기</h3>
+    <table style="width: 95%;" class="table">
+        <tr>
+            <td>순번</td>
+            <td th:text="${board.id}"></td>
+        </tr>
+        <tr>
+            <td>글제목</td>
+            <td th:text="${board.boardtitle}"></td>
+        </tr>
+        <tr>
+            <td>작성자</td>
+            <td th:text="${board.boardwriter}"></td>
+        </tr>
+        <tr>
+            <td>작성시간</td>
+            <td th:text="${board.boardcreatedtime}"></td>
+        </tr>
+        <tr>
+            <td>조회수</td>
+            <td th:text="${board.boardhit}"></td>
+        </tr>
+        <tr>
+            <td>글내용</td>
+            <td>
+                <textarea th:text="${board.boardcontents}" rows="5" style="width: 99%;" name="boardcontents" readonly></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <input type="button" value="목록" id="backList" class="btn btn-primary"/>
+                <input type="button" value="수정하기" id="updateInfo" class="btn btn-primary"/>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

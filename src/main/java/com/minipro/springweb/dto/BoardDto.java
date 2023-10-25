@@ -1,6 +1,7 @@
 package com.minipro.springweb.dto;
 
 
+import com.minipro.springweb.entity.BoardEntity;
 import lombok.*;
 import java.time.LocalDateTime;
 
@@ -19,4 +20,17 @@ public class BoardDto {
     private int boardhit;
     private LocalDateTime boardcreatedtime;
     private LocalDateTime boardupdatedtime;
+
+    public static BoardDto toBoardDto(BoardEntity boardEntity) {
+        BoardDto boardDto = new BoardDto();
+        boardDto.setId(boardEntity.getId());
+        boardDto.setBoardwriter(boardEntity.getBoardwriter());
+        boardDto.setBoardpass(boardEntity.getBoardpass());
+        boardDto.setBoardtitle(boardEntity.getBoardtitle());
+        boardDto.setBoardcontents(boardEntity.getBoardcontents());
+        boardDto.setBoardhit(boardEntity.getBoardhit());
+        boardDto.setBoardcreatedtime(boardEntity.getCreatedtime());
+        boardDto.setBoardupdatedtime(boardEntity.getUpdatedtime());
+        return boardDto;
+    }
 }

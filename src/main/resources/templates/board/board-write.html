@@ -1,31 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>게시물 작성하기</title>
-    <style>
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        textarea[name="boardcontents"] {
-            height: 100px; /* 필드의 높이 조절 */
-        }
-    </style>
+    <title>insert</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
-<body>
+<body style="margin: 20px;">
+<h3 style="text-align: center;">글 작성하기</h3>
 <form action="/board/insert/save" method="post">
-    writer : <input type="text" name="boardwriter"></br>
-    pass : <input type="text" name="boardpass"></br>
-    title : <input type="text" name="boardtitle"></br>
-    contents : <textarea name="boardcontents" cols="30" rows="10"></textarea> </br>
-    <input type="submit" value="작성하기">
+    <table style="width: 95%;" class="table">
+        <tr>
+            <td>작성자</td>
+            <td><input type="text" name="boardwriter"/></td>
+        </tr>
+        <tr>
+            <td>비밀번호</td>
+            <td><input type="text" name="boardpass"/></td>
+        </tr>
+        <tr>
+            <td>글제목</td>
+            <td><input type="text" name="boardtitle"/></td>
+        </tr>
+        <tr>
+            <td>글내용</td>
+            <td>
+                <textarea rows="5" style="width: 99%;" name="boardcontents"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <input type="submit" value="작성하기" class="btn btn-primary"/>
+            </td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>

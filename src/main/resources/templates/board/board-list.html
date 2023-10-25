@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>게시판</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
-<body>
-<h2>게시판 목록</h2>
-<button onclick="boardInsert()">글 작성하기</button>
+<body style="margin: 20px;">
+<div style="width: 95%; text-align: center;">
+    <h3>게시판 목록</h3>
+</div>
+<a href="/board/insert/save">작성하기</a>
+<table style="width: 95%;" class="table">
+    <th>순번</th>
+    <th>제목</th>
+    <th>작성자</th>
+    <th>작성일</th>
+    <th>조회수</th>
+    <tr th:each="board: ${boardList}">
+        <td th:text="${board.id}"></td>
+        <td><a th:href="@{|/board/list/${board.id}|}" th:text="${board.boardtitle}"></a></td>
+        <td th:text="${board.boardwriter}"></td>
+        <td th:text="*{#temporals.format(board.boardcreatedtime, 'yyyy-MM-dd')}"></td>
+        <td th:text="${board.boardhit}"></td>
+    </tr>
+</table>
 </body>
-<script>
-    const boardInsert = () => {
-        location.href = "/board/insert/save";
-    }
-</script>
 </html>
