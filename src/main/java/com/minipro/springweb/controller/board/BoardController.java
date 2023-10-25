@@ -53,8 +53,11 @@ public class BoardController {
 
     @GetMapping("/update/{id}")
     public String boardUpdateForm(@PathVariable Long id, Model model) {
+        /*
+            1. 수정할 게시물의 정보를 보여주는 메서드
+         */
         BoardDto boardDto = boardService.boardFindId(id);
-        model.addAttribute("board", boardDto);
+        model.addAttribute("boardUpdate", boardDto);
         return "board/board-update";
     }
 

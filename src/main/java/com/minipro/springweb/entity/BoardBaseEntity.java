@@ -22,4 +22,6 @@ public class BoardBaseEntity {
     @UpdateTimestamp
     @Column(insertable = false) // 입력할 시 관여하지 않는다.
     private LocalDateTime updatedtime;
+
+
 }

@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>insert</title>
+    <title>update</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script th:inline="javascript">
         window.onload = function (){
@@ -15,7 +15,7 @@
         }
         function updateForm(){
             console.log("수정 요청");
-            const pass = [[${board.boardpass}]];
+            const pass = [[${boardUpdate.boardpass}]];
             const inputPass = document.getElementById("boardpass").value;
             if(pass == inputPass) {
                 document.updateInfo.submit();
@@ -29,36 +29,32 @@
 <body style="margin: 20px;">
 <h3 style="text-align: center;">글 수정하기</h3>
 <form action="/board/update/save" method="post" name="updateInfo">
-    <input type="hidden" name="id" th:value="${board.id}">
+    <input type="hidden" name="id" th:value="${boardUpdate.id}"/>
     <table style="width: 95%;" class="table">
         <tr>
             <td>순번</td>
-            <td th:text="${board.id}"></td>
+            <td th:text="${boardUpdate.id}"></td>
         </tr>
         <tr>
             <td>글제목</td>
-            <td><input type="text" name="boardtitle" th:value="${board.boardtitle}"></td>
+            <td><input type="text" name="boardtitle" th:value="${boardUpdate.boardtitle}"></td>
         </tr>
         <tr>
             <td>작성자</td>
-            <td th:text="${board.boardwriter}"></td>
+            <td><input type="text" name="boardwriter" th:value="${boardUpdate.boardwriter}" readonly/></td>
         </tr>
         <tr>
             <td>비밀번호</td>
             <td><input type="text" name="boardpass" id="boardpass"/></td>
         </tr>
         <tr>
-            <td>작성시간</td>
-            <td th:text="${board.boardcreatedtime}"></td>
-        </tr>
-        <tr>
             <td>조회수</td>
-            <td th:text="${board.boardhit}"></td>
+            <td th:text="${boardUpdate.boardhit}"></td>
         </tr>
         <tr>
             <td>글내용</td>
             <td>
-                <textarea th:text="${board.boardcontents}" rows="5" style="width: 99%;" name="boardcontents"></textarea>
+                <textarea th:text="${boardUpdate.boardcontents}" rows="5" style="width: 99%;" name="boardcontents"></textarea>
             </td>
         </tr>
         <tr>
