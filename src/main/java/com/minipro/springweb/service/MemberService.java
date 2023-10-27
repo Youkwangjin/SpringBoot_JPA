@@ -44,7 +44,7 @@ public class MemberService {
                 return null;
             }
         } else {
-            // 조회 결과가 없다(해당 아이디를 가진 회웑 정보가 없다)
+            // 조회 결과가 없다(해당 아이디를 가진 회원 정보가 없다)
             return null;
         }
     }

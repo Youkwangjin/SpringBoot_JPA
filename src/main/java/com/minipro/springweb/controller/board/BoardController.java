@@ -3,6 +3,9 @@ package com.minipro.springweb.controller.board;
 import com.minipro.springweb.dto.BoardDto;
 import com.minipro.springweb.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -72,10 +75,20 @@ public class BoardController {
         return "board/board-detail";
 
     }
-
     @GetMapping("/delete/{id}")
     public String BoardDeleteForm(@PathVariable Long id) {
         boardService.boardDelete(id);
         return "redirect:/board/list";
+    }
+
+    @GetMapping("/paging")
+    public String paging(@PageableDefault(page = 1)Pageable pageable, Model model) {
+        /*
+            ex) 게시글이 14개에 있다는 가정. 한 페이지에 5개씩 이면 3개
+            즉, 한 페이지에 몇개씩 보이느냐에 따라서 전체 페이지 수가 달라진다.
+            페이지 요청이 올 때 : /board/paging?page=1
+         */
+        Page<BoardDto> boardList = boardService.paging(pageable);
+        return "";
     }
 }

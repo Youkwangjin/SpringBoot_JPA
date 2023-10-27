@@ -21,6 +21,14 @@ public class BoardDto {
     private LocalDateTime boardcreatedtime;
     private LocalDateTime boardupdatedtime;
 
+    public BoardDto(Long id, String boardwriter, String boardtitle, int boardhit, LocalDateTime boardcreatedtime) {
+        this.id = id;
+        this.boardwriter = boardwriter;
+        this.boardtitle = boardtitle;
+        this.boardhit = boardhit;
+        this.boardcreatedtime = boardcreatedtime;
+    }
+
     public static BoardDto toBoardDto(BoardEntity boardEntity) {
         BoardDto boardDto = new BoardDto();
         boardDto.setId(boardEntity.getId());
