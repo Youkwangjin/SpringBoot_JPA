@@ -24,7 +24,7 @@ import java.util.Optional;
     4. DB 데이터를 조회할 때는 Repository로부터 Entity타입으로 Service 클래스가 받아온다. Controller로 Return 줄 때는 Dto 타입으로 반환한다.
  */
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor // final이 붙거나 @NotNull 이 붙은 필드의 생성자를 자동 생성해주는 롬복 어노테이션
 public class BoardService {
 
     private final BoardRepository boardRepository;
