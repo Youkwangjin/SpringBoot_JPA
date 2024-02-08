@@ -12,23 +12,23 @@
         <th>아이디</th>
         <th>비밀번호</th>
         <th>이름</th>
-        <th>이메일</th>
+        <th>전화번호</th>
         <th>상세조회</th>
         <th>삭제하기</th>
     </tr>
-    <!-- 담은 데이터는 list 형식이기 때문에 타임리프 for문 사용 member는 변수이름 -->
+    <!-- 담은 데이터는 list 형식이기 때문에 타임리프 for 문 사용 member는 변수이름 -->
     <tr th:each="member: ${memberList}">
-        <td th:text="${member.userid}"></td>
-        <td th:text="${member.userpwd}"></td>
-        <td th:text="${member.username}"></td>
-        <td th:text="${member.useremail}"></td>
+        <td th:text="${member.userEmail}"></td>
+        <td th:text="${member.userPwd}"></td>
+        <td th:text="${member.userName}"></td>
+        <td th:text="${member.userTel}"></td>
         <td>
             <!-- Query String : /member?userid=1-->
             <!-- rest API -->
-            <a th:href="@{|/member/show/${member.userid}|}"}>조회</a>
+            <a th:href="@{|/member/${member.userId}|}" }>조회</a>
         </td>
         <td>
-            <a th:href="@{|/member/delete/${member.userid}|}"}>삭제</a>
+            <a th:href="@{|/member/delete/${member.userId}|}" }>삭제</a>
         </td>
     </tr>
 </table>

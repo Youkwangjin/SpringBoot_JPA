@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
     <link rel="stylesheet" href="/css/member-login.css">
 </head>
 <body>
-<form action="/member/login/go" method="post">
-    아이디 : <input type="text" name="userid"><br/>
-    비밀번호 : <input type="password" name="userpwd"><br/>
+<form action="/member/login" method="post">
+    이메일 : <label>
+                 <input type="text" name="userEmail">
+            </label><br/>
+    비밀번호 : <label>
+                <input type="password" name="userPwd">
+            </label><br/>
     <input type="submit" value="로그인">
 </form>
 </body>

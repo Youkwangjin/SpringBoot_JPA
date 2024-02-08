@@ -2,26 +2,34 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>게시판</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <title>회원 목록</title>
+    <link rel="stylesheet" href="/css/member-list.css">
 </head>
-<body style="margin: 20px;">
-<div style="width: 95%; text-align: center;">
-    <h3>게시판 목록</h3>
-</div>
-<a href="/board/insert/save">작성하기</a>
-<table style="width: 95%;" class="table">
-    <th>순번</th>
-    <th>제목</th>
-    <th>작성자</th>
-    <th>작성일</th>
-    <th>조회수</th>
-    <tr th:each="board: ${boardList}">
-        <td th:text="${board.id}"></td>
-        <td><a th:href="@{|/board/list/${board.id}|}" th:text="${board.boardtitle}"></a></td>
-        <td th:text="${board.boardwriter}"></td>
-        <td th:text="*{#temporals.format(board.boardcreatedtime)}"></td>
-        <td th:text="${board.boardhit}"></td>
+<body>
+<h2>회원 목록</h2>
+<table>
+    <tr>
+        <th>아이디</th>
+        <th>비밀번호</th>
+        <th>이름</th>
+        <th>이메일</th>
+        <th>상세조회</th>
+        <th>삭제하기</th>
+    </tr>
+    <!-- 담은 데이터는 list 형식이기 때문에 타임리프 for문 사용 member는 변수이름 -->
+    <tr th:each="member: ${memberList}">
+        <td th:text="${member.userEmail}"></td>
+        <td th:text="${member.userPwd}"></td>
+        <td th:text="${member.userName}"></td>
+        <td th:text="${member.userTel}"></td>
+        <td>
+            <!-- Query String : /member?userid=1-->
+            <!-- rest API -->
+            <a th:href="@{|/member/show/${member.userId}|}" }>조회</a>
+        </td>
+        <td>
+            <a th:href="@{|/member/delete/${member.userId}|}" }>삭제</a>
+        </td>
     </tr>
 </table>
 </body>

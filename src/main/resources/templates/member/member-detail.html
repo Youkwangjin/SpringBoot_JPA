@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>상세 조회</title>
@@ -9,31 +9,19 @@
 <h2>상세 목록</h2>
 <table>
     <tr>
-        <th>아이디</th>
+        <th>이메일</th>
         <th>비밀번호</th>
         <th>이름</th>
         <th>전화번호</th>
-        <th>이메일</th>
-        <th>주소</th>
-        <th>주민등록번호</th>
-        <th>키</th>
-        <th>몸무게</th>
-        <th>신발 사이즈</th>
     </tr>
     <!-- 담은 데이터는 list 형식이기 때문에 타임리프 for문 사용 member는 변수이름 -->
     <tr>
         <!-- 여러 개의 데이터가 아닌 하나의 데이터의 정보를 출력함으로서 for문을 쓰지 않는다. -->
-        <!-- member 뒤에는 Controller에서 Dto에서 정한 필드 명을 오게한다. -->
-        <td th:text="${member.userid}"></td>
-        <td th:text="${member.userpwd}"></td>
-        <td th:text="${member.username}"></td>
-        <td th:text="${member.usertel}"></td>
-        <td th:text="${member.useremail}"></td>
-        <td th:text="${member.useraddr}"></td>
-        <td th:text="${member.userjumin}"></td>
-        <td th:text="${member.userheight}"></td>
-        <td th:text="${member.userweight}"></td>
-        <td th:text="${member.usershoessize}"></td>
+        <!-- member 뒤에는 Controller 의 Dto 에서 정한 필드 명을 오게한다. -->
+        <td th:text="${member.userEmail}"></td>
+        <td th:text="${member.userPwd}"></td>
+        <td th:text="${member.userName}"></td>
+        <td th:text="${member.userTel}"></td>
     </tr>
 </table>
 </body>
