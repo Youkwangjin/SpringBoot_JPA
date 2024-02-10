@@ -9,15 +9,18 @@
 <h2>회원 목록</h2>
 <table>
     <tr>
+        <th>회원번호</th>
         <th>아이디</th>
         <th>비밀번호</th>
         <th>이름</th>
         <th>전화번호</th>
         <th>상세조회</th>
         <th>삭제하기</th>
+        <th>돌아가기</th>
     </tr>
     <!-- 담은 데이터는 list 형식이기 때문에 타임리프 for 문 사용 member는 변수이름 -->
     <tr th:each="member: ${memberList}">
+        <td th:text="${member.userId}"></td>
         <td th:text="${member.userEmail}"></td>
         <td th:text="${member.userPwd}"></td>
         <td th:text="${member.userName}"></td>
@@ -29,6 +32,9 @@
         </td>
         <td>
             <a th:href="@{|/member/delete/${member.userId}|}" }>삭제</a>
+        </td>
+        <td>
+            <a href="/">메인 홈페이지</a><br/>
         </td>
     </tr>
 </table>

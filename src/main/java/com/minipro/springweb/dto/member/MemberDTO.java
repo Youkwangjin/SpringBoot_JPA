@@ -15,8 +15,19 @@ public class MemberDTO {
         2. 필드로 작성하는 규칙은 모두 private 정의한다.
         3. 필드를 사용하기 위해선 직접적으로 접근을 제한하고 Getter, Setter 형태로 접근하게 한다.
      */
-    private int userId;
+    private Long userId;
+    private String userEmail;
     private String userPwd;
     private String userName;
     private String userTel;
+
+    public static MemberDTO toMemberDTO(MemberEntity memberEntity) {
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setUserId(memberEntity.getUserId());
+        memberDTO.setUserEmail(memberEntity.getUserEmail());
+        memberDTO.setUserPwd(memberEntity.getUserPwd());
+        memberDTO.setUserName(memberEntity.getUserName());
+        memberDTO.setUserTel(memberEntity.getUserTel());
+        return memberDTO;
+    }
 }
