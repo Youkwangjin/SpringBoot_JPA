@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 상세 페이지</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script th:inline="javascript">
+        window.onload = function (){
+            document.querySelector("#backList").onclick=backFunc;
+            document.querySelector("#updateInfo").onclick=updateForm;
+            document.querySelector("#deleteInfo").onclick=deleteForm;
+        }
+        function backFunc(){
+            console.log("목록 요청");
+            location.href = "/board/list";
+        }
+        function updateForm(){
+            console.log("수정 요청");
+            const boardId = [[${board.boardId}]];
+            location.href = "/board/update/" + boardId;
+        }
+
+        function deleteForm(){
+            console.log("삭제 요청");
+            const boardId = [[${board.boardId}]];
+            location.href = "/board/update/" + boardId;
+        }
+    </script>
+</head>
+<body style="margin: 20px;">
+<h3 style="text-align: center;">상세보기</h3>
+<table style="width: 95%;" class="table">
+    <tr>
+        <td>순번</td>
+        <td th:text="${board.boardId}"></td>
+    </tr>
+    <tr>
+        <td>글제목</td>
+        <td th:text="${board.boardTitle}"></td>
+    </tr>
+    <tr>
+        <td>작성자</td>
+        <td th:text="${board.boardWriter}"></td>
+    </tr>
+    <tr>
+        <td>작성시간</td>
+        <td th:text="${board.boardCreateTime}"></td>
+    </tr>
+    <tr>
+        <td>조회수</td>
+        <td th:text="${board.boardHits}"></td>
+    </tr>
+    <tr>
+        <td>글내용</td>
+        <td>
+            <label>
+                <textarea th:text="${board.boardContents}" rows="5" style="width: 99%;" name="boardContents" readonly></textarea>
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            <input type="button" value="목록" id="backList" class="btn btn-primary"/>
+            <input type="button" value="수정하기" id="updateInfo" class="btn btn-primary"/>
+            <input type="button" value="삭제하기" id="deleteInfo" class="btn btn-primary"/>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
