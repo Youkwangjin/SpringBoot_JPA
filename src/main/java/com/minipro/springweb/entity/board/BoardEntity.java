@@ -17,16 +17,16 @@ public class BoardEntity extends BoardBaseEntity{
     @Column(name = "board_id")
     private Long boardId;
 
-    @Column(name = "board_writer", length = 20, nullable = false) // 크기는 20, Not Null
+    @Column(name = "board_writer", length = 20)
     private String boardWriter;
 
-    @Column(name = "board_password", nullable = false)
+    @Column(name = "board_password")
     private String boardPassword;
 
-    @Column(name = "board_title", nullable = false)
+    @Column(name = "board_title")
     private String boardTitle;
 
-    @Column(name = "board_contents", length = 300, nullable = false)
+    @Column(name = "board_contents", length = 300)
     private String boardContents;
 
     @Column(name = "board_hits")
@@ -39,6 +39,17 @@ public class BoardEntity extends BoardBaseEntity{
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(0);
+        return boardEntity;
+    }
+
+    public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
+        BoardEntity boardEntity = new BoardEntity();
+        boardEntity.setBoardId(boardDTO.getBoardId());
+        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
+        boardEntity.setBoardPassword(boardDTO.getBoardPassword());
+        boardEntity.setBoardTitle(boardDTO.getBoardTitle());
+        boardEntity.setBoardContents(boardDTO.getBoardContents());
+        boardEntity.setBoardHits(boardDTO.getBoardHits());
         return boardEntity;
     }
 }
