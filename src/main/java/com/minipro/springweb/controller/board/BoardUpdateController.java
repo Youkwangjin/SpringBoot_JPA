@@ -22,9 +22,7 @@ public class BoardUpdateController {
     @GetMapping("/board/update/{boardId}")
     public String boardUpdateForm(@PathVariable Long boardId, Model model){
         BoardDTO boardDTO = boardListService.findByBoardId(boardId);
-        System.out.println(boardDTO);
         model.addAttribute("boardUpdate", boardDTO);
-        System.out.println(model);
         return "/board/board-update";
     }
 

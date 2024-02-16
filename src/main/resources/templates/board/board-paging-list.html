@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <a href="/board/insert" class="btn btn-primary">작성하기</a>
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>title</th>
+                    <th>writer</th>
+                    <th>date</th>
+                    <th>hits</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="board: ${boardList}">
+                    <td th:text="${board.boardId}"></td>
+                    <td><a th:href="@{/board/list/{boardId}(boardId=${board.boardId})}" th:text="${board.boardTitle}"></a></td>
+                    <td th:text="${board.boardWriter}"></td>
+                    <td th:text="${#temporals.format(board.boardCreateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td th:text="${board.boardHits}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- 첫번째 페이지로 이동 -->
+            <a th:href="@{/board/list/paging(page=1)}" class="btn btn-default">First</a>
+            <!-- 이전 링크 활성화 비활성화 -->
+            <a th:href="${boardList.first} ? '#' : @{/board/list/paging(page=${boardList.number})}" class="btn btn-default">Prev</a>
+            <!-- 페이지 번호 링크(현재 페이지는 숫자만) -->
+            <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+                <a th:href="@{/board/list/paging(page=${page})}" th:text="${page}" class="btn btn-default" th:classappend="${page == boardList.number + 1} ? 'active' : ''"></a>
+            </span>
+            <!-- 다음 링크 활성화 비활성화 -->
+            <a th:href="${boardList.last} ? '#' : @{/board/list/paging(page=${boardList.number + 2})}" class="btn btn-default">Next</a>
+            <!-- 마지막 페이지로 이동 -->
+            <a th:href="@{/board/list/paging(page=${boardList.totalPages})}" class="btn btn-default">Last</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

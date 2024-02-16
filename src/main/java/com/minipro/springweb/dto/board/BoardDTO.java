@@ -21,6 +21,14 @@ public class BoardDTO {
     private LocalDateTime boardCreateTime;
     private LocalDateTime boardUpdateTime;
 
+    public BoardDTO(Long boardId, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreateTime) {
+        this.boardId = boardId;
+        this.boardWriter = boardWriter;
+        this.boardTitle = boardTitle;
+        this.boardHits = boardHits;
+        this.boardCreateTime = boardCreateTime;
+    }
+
     public static BoardDTO toBoardDTO(BoardEntity boardEntity) {
         BoardDTO boardDTO = new BoardDTO();
         boardDTO.setBoardId(boardEntity.getBoardId());

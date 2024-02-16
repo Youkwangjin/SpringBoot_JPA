@@ -5,6 +5,10 @@ import com.minipro.springweb.entity.board.BoardEntity;
 import com.minipro.springweb.repository.board.BoardRepository;
 import com.minipro.springweb.service.board.BoardListService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +44,8 @@ public class BoardListServiceImpl implements BoardListService {
             3. DTO 형태로 변환하여 반환
          */
         if (optionalBoardEntity.isPresent()) {
-            return BoardDTO.toBoardDTO(optionalBoardEntity.get());
+            BoardEntity boardEntity = optionalBoardEntity.get();
+            return BoardDTO.toBoardDTO(boardEntity);
         } else {
             return null;
         }
@@ -50,5 +55,44 @@ public class BoardListServiceImpl implements BoardListService {
     @Override
     public void updateHits(Long boardId) {
         boardRepository.updateHits(boardId);
+    }
+
+    @Override
+    public Page<BoardDTO> boardPaging(Pageable pageable) {
+        /*
+            1. findAll() 호출하는 동시에 몇 페이지를 보고 싶은지 설정하는 메서드
+            2. pageLimit은 한 페이지에 보여줄 글 갯수를 정할 때 사용한다.
+            3. Sort.by 기준으로 정렬해서 해당 페이지 값을 가져온다.
+            4. (Sort.Direction.DESC, "id") 에서 "id"는 'Entity'에서 작성한 이름을 기준으로 한다.
+            5. 즉, 한 페이지당 3개씩 글을 보여주고 정렬 기준은 id 기준으로 내림차순 정렬
+         */
+        int page = pageable.getPageNumber() - 1; // -1를 한 이유는 page 위치에 있는 값은 0부터 시작하기 때문
+        int pageLimit = 3;
+        Page<BoardEntity> boardEntities =
+                boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "boardId")));
+
+        System.out.println("boardEntities.getContent() = " + boardEntities.getContent()); // 요청 페이지에 해당하는 글
+        System.out.println("boardEntities.getTotalElements() = " + boardEntities.getTotalElements()); // 전체 글갯수
+        System.out.println("boardEntities.getNumber() = " + boardEntities.getNumber()); // DB로 요청한 페이지 번호
+        System.out.println("boardEntities.getTotalPages() = " + boardEntities.getTotalPages()); // 전체 페이지 갯수
+        System.out.println("boardEntities.getSize() = " + boardEntities.getSize()); // 한 페이지에 보여지는 글 갯수
+        System.out.println("boardEntities.hasPrevious() = " + boardEntities.hasPrevious()); // 이전 페이지 존재 여부
+        System.out.println("boardEntities.isFirst() = " + boardEntities.isFirst()); // 첫 페이지 여부
+        System.out.println("boardEntities.isLast() = " + boardEntities.isLast()); // 마지막 페이지 여부
+
+        /*
+            1. boardEntities는 Entity 객체로 담겨있음으로 DTO 타입으로 변환해야 한다.
+            2. map 메서드는 Page 객체에서 제공해주는 메서드이다.
+            3. board는 entity객체의 매개변수를 하나씩 꺼내서 DTO 객체로 옮겨 담는다.
+            4. 페이지 목록을 보여주기 위한 데이터 id, writer, title, hits, createdTime
+         */
+        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(
+                board.getBoardId(),
+                board.getBoardWriter(),
+                board.getBoardTitle(),
+                board.getBoardHits(),
+                board.getCreateTime()));
+        return boardDTOS;
+
     }
 }

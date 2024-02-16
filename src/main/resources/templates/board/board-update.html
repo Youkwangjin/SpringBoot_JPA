@@ -47,7 +47,11 @@
         </tr>
         <tr>
             <td>작성자</td>
-            <td th:text="${boardUpdate.boardWriter}"></td>
+            <td>
+                <label>
+                    <input type="text" name="boardWriter" th:value="${boardUpdate.boardWriter}" readonly>
+                </label>
+            </td>
         </tr>
         <tr>
             <td>비밀번호</td>
