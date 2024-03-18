@@ -58,6 +58,12 @@
             </label>
         </td>
     </tr>
+    <tr th:if="${board.fileAttached == 1}">
+        <td>이미지</td>
+        <td>
+            <img th:src="@{|/upload/${board.storedFileName}|}" alt="이미지">
+        </td>
+    </tr>
     <tr>
         <td colspan="2" style="text-align: center;">
             <input type="button" value="목록" id="backList" class="btn btn-primary"/>

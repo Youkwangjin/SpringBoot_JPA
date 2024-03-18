@@ -2,6 +2,7 @@ package com.minipro.springweb.dto.board;
 
 import com.minipro.springweb.entity.board.BoardEntity;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -21,6 +22,16 @@ public class BoardDTO {
     private LocalDateTime boardCreateTime;
     private LocalDateTime boardUpdateTime;
 
+    /*
+        1. boardFile = 실제 파일을 담아서 Controller 에게 넘겨줄 수 있다.
+        2. originalFileName = 원본 파일 이름, storedFileName = 서버 저장용 파일 이름
+        3. fileAttached = 파일 첨부 여부 (첨부 1, 미첨부 0)
+     */
+    private MultipartFile boardFile;
+    private String originalFileName;
+    private String storedFileName;
+    private int fileAttached;
+
     public BoardDTO(Long boardId, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreateTime) {
         this.boardId = boardId;
         this.boardWriter = boardWriter;
@@ -39,6 +50,19 @@ public class BoardDTO {
         boardDTO.setBoardHits(boardEntity.getBoardHits());
         boardDTO.setBoardCreateTime(boardEntity.getCreateTime());
         boardDTO.setBoardUpdateTime(boardEntity.getUpdateTime());
+        if (boardEntity.getFileAttached() == 0) {
+            boardDTO.setFileAttached(boardEntity.getFileAttached());
+        } else {
+            boardDTO.setFileAttached(boardEntity.getFileAttached());
+            /*
+                1. 파일 이름을 가져가야 한다.
+                2. originalFileName, storedFileName => board_file_table에 저장
+                3. 부모 Entity 객체가 자식 Entity 객체를 직접적으로 접근 가능 (JPA 강점)
+             */
+            boardDTO.setOriginalFileName(boardEntity.getBoardFileEntityList().get(0).getOriginalFileName());
+            boardDTO.setStoredFileName(boardEntity.getBoardFileEntityList().get(0).getStoredFileName());
+
+        }
         return boardDTO;
     }
 }

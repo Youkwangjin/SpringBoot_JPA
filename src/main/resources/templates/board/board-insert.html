@@ -7,7 +7,7 @@
 </head>
 <body style="margin: 20px;">
 <h3 style="text-align: center;">글 작성하기</h3>
-<form action="/board/insert/save" method="post">
+<form action="/board/insert/save" method="post" enctype="multipart/form-data">
     <table style="width: 95%;" class="table">
         <tr>
             <td>작성자</td>
@@ -38,6 +38,14 @@
             <td>
                 <label>
                     <textarea rows="5" style="width: 99%;" name="boardContents"></textarea>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>파일 첨부하기</td>
+            <td>
+                <label>
+                    <input type="file" name="boardFile"/>
                 </label>
             </td>
         </tr>

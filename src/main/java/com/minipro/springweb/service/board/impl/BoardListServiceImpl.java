@@ -36,6 +36,7 @@ public class BoardListServiceImpl implements BoardListService {
     }
 
     @Override
+    @Transactional
     public BoardDTO findByBoardId(Long boardId) {
         Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(boardId);
         /*
@@ -70,16 +71,6 @@ public class BoardListServiceImpl implements BoardListService {
         int pageLimit = 3;
         Page<BoardEntity> boardEntities =
                 boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "boardId")));
-
-        System.out.println("boardEntities.getContent() = " + boardEntities.getContent()); // 요청 페이지에 해당하는 글
-        System.out.println("boardEntities.getTotalElements() = " + boardEntities.getTotalElements()); // 전체 글갯수
-        System.out.println("boardEntities.getNumber() = " + boardEntities.getNumber()); // DB로 요청한 페이지 번호
-        System.out.println("boardEntities.getTotalPages() = " + boardEntities.getTotalPages()); // 전체 페이지 갯수
-        System.out.println("boardEntities.getSize() = " + boardEntities.getSize()); // 한 페이지에 보여지는 글 갯수
-        System.out.println("boardEntities.hasPrevious() = " + boardEntities.hasPrevious()); // 이전 페이지 존재 여부
-        System.out.println("boardEntities.isFirst() = " + boardEntities.isFirst()); // 첫 페이지 여부
-        System.out.println("boardEntities.isLast() = " + boardEntities.isLast()); // 마지막 페이지 여부
-
         /*
             1. boardEntities는 Entity 객체로 담겨있음으로 DTO 타입으로 변환해야 한다.
             2. map 메서드는 Page 객체에서 제공해주는 메서드이다.

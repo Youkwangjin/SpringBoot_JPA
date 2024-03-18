@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
+
 @Controller
 @RequiredArgsConstructor
 public class BoardInsertController {
@@ -20,8 +22,8 @@ public class BoardInsertController {
         return "/board/board-insert";
     }
 
-    @PostMapping ("/board/insert/save")
-    public String boardInsert(@ModelAttribute BoardDTO boardDTO) {
+    @PostMapping("/board/insert/save")
+    public String boardInsert(@ModelAttribute BoardDTO boardDTO) throws IOException {
         boardInsertService.boardInsertData(boardDTO);
         return "redirect:/board/list";
     }
